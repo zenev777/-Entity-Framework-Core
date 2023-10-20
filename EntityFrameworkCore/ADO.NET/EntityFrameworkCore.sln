@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercises-ADO.NET", "Exercises-ADO.NET\Exercises-ADO.NET.csproj", "{A3937EA2-A11E-4B0A-907B-CFB42BB64735}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3.MinionNames", "3.MinionNames\3.MinionNames.csproj", "{5B885485-A665-4508-92AA-02EB6827ABF1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A3937EA2-A11E-4B0A-907B-CFB42BB64735}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3937EA2-A11E-4B0A-907B-CFB42BB64735}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3937EA2-A11E-4B0A-907B-CFB42BB64735}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3937EA2-A11E-4B0A-907B-CFB42BB64735}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B885485-A665-4508-92AA-02EB6827ABF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B885485-A665-4508-92AA-02EB6827ABF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B885485-A665-4508-92AA-02EB6827ABF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B885485-A665-4508-92AA-02EB6827ABF1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {64A36367-0893-4464-B0DB-2F5FB6A38AFF}
+	EndGlobalSection
+EndGlobal
