@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace _02.Database_First.Data.Models
+namespace SoftUni.Models
 {
     public partial class Employee
     {
@@ -9,7 +9,7 @@ namespace _02.Database_First.Data.Models
         {
             Departments = new HashSet<Department>();
             InverseManager = new HashSet<Employee>();
-            Projects = new HashSet<Project>();
+            EmployeesProjects = new HashSet<EmployeeProject>();
         }
 
         public int EmployeeId { get; set; }
@@ -29,6 +29,7 @@ namespace _02.Database_First.Data.Models
         public virtual ICollection<Department> Departments { get; set; }
         public virtual ICollection<Employee> InverseManager { get; set; }
 
-        public virtual ICollection<Project> Projects { get; set; }
+        public virtual ICollection<EmployeeProject> EmployeesProjects { get; set; }
+
     }
 }

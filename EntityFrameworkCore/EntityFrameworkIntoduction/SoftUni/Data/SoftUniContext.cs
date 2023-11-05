@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using _02.Database_First.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using SoftUni.Models;
 
-namespace _02.Database_First.Data
+namespace SoftUni.Data
 {
     public partial class SoftUniContext : DbContext
     {
@@ -22,13 +22,14 @@ namespace _02.Database_First.Data
         public virtual DbSet<Employee> Employees { get; set; } = null!;
         public virtual DbSet<Project> Projects { get; set; } = null!;
         public virtual DbSet<Town> Towns { get; set; } = null!;
+        public virtual DbSet<EmployeeProject> EmployeeProjects { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-GUVMUS8\\SQLEXPRESS;Database=SoftUni; Integrated Security = true;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-GUVMUS8\\SQLEXPRESS;Database=SoftUni;Integrated Security=True;");
             }
         }
 
@@ -113,22 +114,25 @@ namespace _02.Database_First.Data
                     .HasForeignKey(d => d.ManagerId)
                     .HasConstraintName("FK_Employees_Employees");
 
-                entity.HasMany(d => d.Projects)
-                    .WithMany(p => p.Employees)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "EmployeesProject",
-                        l => l.HasOne<Project>().WithMany().HasForeignKey("ProjectId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_EmployeesProjects_Projects"),
-                        r => r.HasOne<Employee>().WithMany().HasForeignKey("EmployeeId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_EmployeesProjects_Employees"),
-                        j =>
-                        {
-                            j.HasKey("EmployeeId", "ProjectId");
 
-                            j.ToTable("EmployeesProjects");
 
-                            j.IndexerProperty<int>("EmployeeId").HasColumnName("EmployeeID");
 
-                            j.IndexerProperty<int>("ProjectId").HasColumnName("ProjectID");
-                        });
+                //entity.HasMany(d => d.Projects)
+                //    .WithMany(p => p.Employees)
+                //    .UsingEntity<Dictionary<string, object>>(
+                //        "EmployeesProject",
+                //        l => l.HasOne<Project>().WithMany().HasForeignKey("ProjectId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_EmployeesProjects_Projects"),
+                //        r => r.HasOne<Employee>().WithMany().HasForeignKey("EmployeeId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_EmployeesProjects_Employees"),
+                //        j =>
+                //        {
+                //            j.HasKey("EmployeeId", "ProjectId");
+
+                //            j.ToTable("EmployeesProjects");
+
+                //            j.IndexerProperty<int>("EmployeeId").HasColumnName("EmployeeID");
+
+                //            j.IndexerProperty<int>("ProjectId").HasColumnName("ProjectID");
+                //        });
             });
 
             modelBuilder.Entity<Project>(entity =>
@@ -153,6 +157,13 @@ namespace _02.Database_First.Data
                 entity.Property(e => e.Name)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<EmployeeProject>(entity =>
+            {
+                entity.HasKey(pk => new { pk.EmployeeId, pk.ProjectId});
+                entity.HasOne(ep => ep.Employee).WithMany(e => e.EmployeesProjects).HasForeignKey(ep=>ep.EmployeeId);
+                entity.HasOne(ep => ep.Project).WithMany(e => e.EmployeesProjects).HasForeignKey(ep => ep.ProjectId);
             });
 
             OnModelCreatingPartial(modelBuilder);

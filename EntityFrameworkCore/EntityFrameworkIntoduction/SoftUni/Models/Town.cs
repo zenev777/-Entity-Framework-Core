@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace _02.Database_First.Data.Models
+namespace SoftUni.Models
 {
     public partial class Town
     {
