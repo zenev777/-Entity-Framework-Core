@@ -12,5 +12,7 @@ namespace P02_FootballBetting.Data.Models
 
         [ForeignKey (nameof(CountryId))]
         public Country Country { get; set; }
+
+        public virtual ICollection<Town> Towns { get; set; }
     }
 }

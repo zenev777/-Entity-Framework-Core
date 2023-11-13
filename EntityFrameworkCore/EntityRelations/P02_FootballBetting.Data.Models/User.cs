@@ -24,6 +24,6 @@ namespace P02_FootballBetting.Data.Models
         [Required]
         public string Name { get; set; }
 
-        public ICollection<Bet> Bets { get; set; }
+        public virtual ICollection<Bet> Bets { get; set; }
     }
 }
