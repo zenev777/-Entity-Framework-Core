@@ -7,6 +7,7 @@ namespace SoftUni
 {
     public class StartUp
     {
+        //02. Database First
         static void Main(string[] args)
         {
             SoftUniContext context = new SoftUniContext();
@@ -161,7 +162,7 @@ namespace SoftUni
             return result;
         }
 
-        //09. Employee 147
+        //unsolved 09. Employee 147
         public static string GetEmployee147(SoftUniContext context)
         {
 
