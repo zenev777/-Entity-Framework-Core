@@ -13,5 +13,7 @@ namespace P02_FootballBetting.Data.Models
         public const int UsernameLenght = 50;
 
         public const int PositionNameLenght = 60;
+
+        public const int InitialsLenght = 3;
     }
 }

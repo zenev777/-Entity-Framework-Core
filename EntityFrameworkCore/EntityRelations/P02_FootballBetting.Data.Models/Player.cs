@@ -27,8 +27,10 @@ namespace P02_FootballBetting.Data.Models
 
         public bool IsInjured { get; set; }
 
-        //its not ready yet
+          //its not ready yet
         public int TeamId { get; set; }
         public Team Team { get; set; }
+
+        public virtual ICollection<Player> Players { get; set; }
     }
 }
