@@ -4,6 +4,7 @@ namespace P02_FootballBetting.Data.Models
 {
     public class Position
     {
+        [Key]
         public int PositionId{ get; set; }
 
         [Required]

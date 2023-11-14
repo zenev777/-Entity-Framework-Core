@@ -18,8 +18,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\P02_FootballBettin\P02_FootballBettin.csproj" />
-  </ItemGroup>
-
 </Project>

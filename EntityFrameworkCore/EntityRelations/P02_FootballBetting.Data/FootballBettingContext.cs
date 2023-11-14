@@ -10,7 +10,7 @@ namespace P02_FootballBetting.Data
 {
     public class FootballBettingContext : DbContext
     {
-        private const string conectionString = "Server=DESKTOP-GUVMUS8\\SQLEXPRESS;Database=MinionsDB; Integrated Security = true;";
+        private const string conectionString = "Server=PC5-ZALA-JA\\SQLEXPRESS;Database=Trying; Integrated Security = true;";
 
         public DbSet<Town> Towns { get; set; }
 
@@ -27,9 +27,6 @@ namespace P02_FootballBetting.Data
         public DbSet<Position> Positions { get; set; }
 
         public DbSet<Team> Teams { get; set; }
-
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(conectionString);
