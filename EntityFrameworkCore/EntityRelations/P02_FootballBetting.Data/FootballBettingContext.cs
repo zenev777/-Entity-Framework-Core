@@ -10,11 +10,16 @@ namespace P02_FootballBetting.Data
 {
     public class FootballBettingContext : DbContext
     {
-        private const string conectionString = "Server=PC5-ZALA-JA\\SQLEXPRESS;Database=Trying; Integrated Security = true;";
+
+        public FootballBettingContext(DbContextOptions options) : base(options)
+        {
+        }
+        
+        private const string conectionString = "Server=DESKTOP-GUVMUS8\\SQLEXPRESS;Database=FootballBookmakerSystem; Integrated Security = true;";
 
         public DbSet<Town> Towns { get; set; }
 
-        public DbSet<Country> Countires { get; set; }
+        public DbSet<Country> Countries { get; set; }
 
         public DbSet<Color> Colors { get; set; }
 
@@ -27,9 +32,17 @@ namespace P02_FootballBetting.Data
         public DbSet<Position> Positions { get; set; }
 
         public DbSet<Team> Teams { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+        public DbSet<Game> Games { get; set; }
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(conectionString);
+        //}
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            optionsBuilder.UseSqlServer(conectionString);
+            modelBuilder.Entity<PlayerStatistic>().HasKey(ps=>new{ps.PlayerId,ps.GameId});
         }
     }
 }

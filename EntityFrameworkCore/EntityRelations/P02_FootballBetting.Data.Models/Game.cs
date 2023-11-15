@@ -5,6 +5,7 @@ namespace P02_FootballBetting.Data.Models
 {
     public class Game
     {
+        [Key]
         public int GameId { get; set; }
 
         public int HomeTeamId { get; set; }
@@ -29,6 +30,9 @@ namespace P02_FootballBetting.Data.Models
         public string Result { get; set; }
 
         public virtual ICollection<PlayerStatistic> PlayerStatistics { get; set; }
+
+        public virtual ICollection<Bet> Bets { get; set; }
+
 
     }
 }

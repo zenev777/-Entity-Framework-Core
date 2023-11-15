@@ -8,14 +8,15 @@ namespace P02_FootballBetting.Data.Models
         [Key]
         public int BetId { get; set; }
 
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
 
         public string Prediction { get; set; }
 
         public DateTime DateTime { get; set; }
-
-        //relation not ready
+        
         public int GameId { get; set; }
+        [ForeignKey(nameof(GameId))]
+        public Game Game { get; set; }
 
         public int UserId { get; set; }
         [ForeignKey(nameof(UserId))]
