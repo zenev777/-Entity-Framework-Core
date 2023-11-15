@@ -15,7 +15,7 @@ namespace P02_FootballBetting.Data.Models
 
         [Required]
         [MaxLength(Constraints.UsernameLenght)]
-        public string UserName { get; set; }
+        public string Username { get; set; }
         [Required]
         public string Password { get; set; }
 

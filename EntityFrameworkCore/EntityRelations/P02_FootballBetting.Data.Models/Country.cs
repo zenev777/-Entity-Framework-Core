@@ -10,7 +10,7 @@ namespace P02_FootballBetting.Data.Models
     public class Country
     {
         [Key]
-        public int CountyId { get; set; }
+        public int CountryId { get; set; }
 
         public string Name { get; set; }
 
