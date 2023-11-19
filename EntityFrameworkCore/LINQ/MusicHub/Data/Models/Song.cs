@@ -27,9 +27,9 @@ namespace MusicHub.Data.Models
         [Required]
         public Genre Genre { get; set; }
 
-        public int AlbumId { get; set; }
+        public int? AlbumId { get; set; }
         [ForeignKey(nameof(AlbumId))]
-        public Album Album { get; set; }
+        public Album? Album { get; set; }
 
         [Required]
         public int WriterId { get; set; }
@@ -39,6 +39,6 @@ namespace MusicHub.Data.Models
         [Required]
         public decimal Price { get; set; }
 
-        public ICollection<SongPerformer> SongPerformers{ get; set; }
+        public ICollection<SongPerformer> SongPerformers { get; set; }
     }
 }

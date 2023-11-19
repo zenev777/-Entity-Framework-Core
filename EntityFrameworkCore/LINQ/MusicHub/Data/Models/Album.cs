@@ -12,15 +12,16 @@ namespace MusicHub.Data.Models
         [MaxLength(40)]
         public string Name { get; set; }
 
+        [Required]
         public DateTime ReleaseDate { get; set; }
 
         public decimal Price => Songs.Sum(s=>s.Price);
 
         public virtual ICollection<Song> Songs { get; set; }
 
-        public int ProducerId { get; set; }
+        public int? ProducerId { get; set; }
         [ForeignKey(nameof(ProducerId))]
-        public Producer Producer { get; set; }
+        public Producer? Producer { get; set; }
 
 
     }
