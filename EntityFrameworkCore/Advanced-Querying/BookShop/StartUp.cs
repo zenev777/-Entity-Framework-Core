@@ -81,7 +81,7 @@
             return string.Join(Environment.NewLine, books.Select(b => b.bookTitle));
         }
 
-        // ?
+        // 06. Book Titles by Category
         public static string GetBooksByCategory(BookShopContext context, string input)
         {
             string[] categories = input
@@ -102,6 +102,7 @@
 
             return string.Join(Environment.NewLine, books.Select(b => b.bookTitle));
         }
+                        
     }
 
 
