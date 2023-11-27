@@ -10,11 +10,11 @@
         {
             using var db = new BookShopContext();
             //DbInitializer.ResetDatabase(db);
-            //string input = Console.ReadLine();
-            int inYear = int.Parse(Console.ReadLine());
+            string input = Console.ReadLine();
+            //int inYear = int.Parse(Console.ReadLine());
 
 
-            Console.WriteLine(GetBooksNotReleasedIn(db, inYear));
+            Console.WriteLine(GetBooksByCategory(db, input));
         }
 
 
@@ -65,7 +65,7 @@
             return string.Join(Environment.NewLine, books.Select(b => $"{b.bookTitle} - ${b.bookPrice}"));
         }
 
-
+        //05. Not Released In
         public static string GetBooksNotReleasedIn(BookShopContext context, int year)
         {
             var books = context.Books
@@ -76,6 +76,28 @@
                     bookTitle = b.Title
                 })
                 .OrderBy(b => b.bookId)
+                .ToList();
+
+            return string.Join(Environment.NewLine, books.Select(b => b.bookTitle));
+        }
+
+        // ?
+        public static string GetBooksByCategory(BookShopContext context, string input)
+        {
+            string[] categories = input
+                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
+                .Select(c => c.ToLower())
+                .ToArray();
+
+
+            var books = context.Books
+                .Where(b => b.BookCategories.Any(bc=>categories.Contains(bc.Category.Name.ToLower())))
+                .Select(b => new
+                {
+                    bookCategories = b.BookCategories,
+                    bookTitle = b.Title
+                })
+                .OrderBy(b => b.bookTitle)
                 .ToList();
 
             return string.Join(Environment.NewLine, books.Select(b => b.bookTitle));
