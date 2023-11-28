@@ -1,5 +1,6 @@
 ﻿namespace BookShop
 {
+    using BookShop.Models;
     using BookShop.Models.Enums;
     using Data;
     using Initializer;
@@ -14,7 +15,7 @@
             //int inYear = int.Parse(Console.ReadLine());
 
 
-            Console.WriteLine(GetBooksByCategory(db, input));
+            Console.WriteLine(GetBooksByAuthor(db, input));
         }
 
 
@@ -102,11 +103,74 @@
 
             return string.Join(Environment.NewLine, books.Select(b => b.bookTitle));
         }
-                        
+
+        // 07. Released Before Date ---------- ?
+        public static string GetBooksReleasedBefore(BookShopContext context, string date)
+        {
+            return "";
+        }
+
+        // 08. Author Search
+        public static string GetAuthorNamesEndingIn(BookShopContext context, string input)
+        {
+            var authors = context.Books
+                .Where(b => b.Author.FirstName.EndsWith(input))                
+                .Select(b => new
+                {
+                    AuthorName = b.Author.FirstName + " " + b.Author.LastName,
+                })
+                .Distinct()
+                .ToList();
+
+            return string.Join(Environment.NewLine, authors.Select(b => b.AuthorName));
+        }
+
+
+        // 09. Book Search
+        public static string GetBookTitlesContaining(BookShopContext context, string input)
+        {
+            var books = context.Books
+                .Where(b => b.Title.ToLower().Contains(input.ToLower()))
+                .Select(b => new
+                {
+                    BookTitle = b.Title
+                })
+                .OrderBy(b => b.BookTitle)
+                .ToList();
+
+            return string.Join(Environment.NewLine, books.Select(b => b.BookTitle));
+        }
+
+        //10. Book Search by Author
+        public static string GetBooksByAuthor(BookShopContext context, string input)
+        {
+            var books = context.Books
+                .Where(b => b.Author.LastName.ToLower().StartsWith(input.ToLower()))
+                .Select(b => new
+                {
+                    b.BookId,
+                    BookTitle = b.Title,
+                    AuthorName = b.Author.FirstName + " " + b.Author.LastName
+                })
+                .OrderBy(b => b.BookId)
+                .ToList();
+
+            return string.Join(Environment.NewLine, books.Select(b => $"{b.BookTitle} ({b.AuthorName})"));
+        }
+
+
+        //11. Count Books --------------?
+        public static int CountBooks(BookShopContext context, int lengthCheck)
+        {
+            int count = 0;
+            return count;
+        }
+
+
     }
 
 
-    
+
 }
 
 

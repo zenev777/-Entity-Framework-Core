@@ -3,6 +3,6 @@
     internal class Configuration
     {
         internal static string ConnectionString
-            => @"Server=DESKTOP-GUVMUS8\SQLEXPRESS;Database=BookShop;Trusted_Connection=True";
+            => @"Server=PC5-ZALA-JA\SQLEXPRESS;Database=BookShop;Trusted_Connection=True";
     }
 }
