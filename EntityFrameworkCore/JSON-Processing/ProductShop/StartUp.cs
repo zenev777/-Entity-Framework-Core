@@ -20,7 +20,7 @@ namespace ProductShop
             //Console.WriteLine(ImportCategories(context, impoprtCategoriesJson));
             //Console.WriteLine(ImportCategoryProducts(context, impoprtCatProdJson));
 
-            Console.WriteLine(GetProductsInRange(context));
+            Console.WriteLine(GetSoldProducts(context));
         }
 
         //01. Import Users
@@ -89,6 +89,33 @@ namespace ProductShop
 
             var json = JsonConvert.SerializeObject(productsInRange, Formatting.Indented);
             
+            return json;
+        }
+        
+        //06. Export Sold Products
+        public static string GetSoldProducts(ProductShopContext context)
+        {
+            var SoldProductsUsers = context.Users
+                .Where(u=>u.ProductsSold.Any(b=>b.BuyerId != null))
+                .OrderBy(u => u.LastName).ThenBy(u => u.FirstName)
+                .Select(u => new
+                {
+                    firstName=u.FirstName,
+                    lastName=u.LastName,
+                    soldProducts = u.ProductsSold
+                    .Where(ps=>ps.BuyerId!=null)
+                    .Select(ps => new
+                    {
+                        name=ps.Name,
+                        price=ps.Price,
+                        buyerFirstName=ps.Buyer.FirstName,
+                        buyerLastName=ps.Buyer.LastName,
+                    }).ToArray()
+                })
+                .ToArray();
+
+            string json = JsonConvert.SerializeObject(SoldProductsUsers, Formatting.Indented);
+
             return json;
         }
 
