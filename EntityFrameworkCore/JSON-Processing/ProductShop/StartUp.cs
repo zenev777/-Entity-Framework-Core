@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using ProductShop.Data;
 using ProductShop.Models;
 
@@ -19,8 +20,9 @@ namespace ProductShop
             //Console.WriteLine(ImportProducts(context, impoprtProductsJson));
             //Console.WriteLine(ImportCategories(context, impoprtCategoriesJson));
             //Console.WriteLine(ImportCategoryProducts(context, impoprtCatProdJson));
-
-            Console.WriteLine(GetSoldProducts(context));
+           
+            
+            //Console.WriteLine(GetCategoriesByProductsCount(context));
         }
 
         //01. Import Users
@@ -88,35 +90,53 @@ namespace ProductShop
                 .ToArray();
 
             var json = JsonConvert.SerializeObject(productsInRange, Formatting.Indented);
-            
+
             return json;
         }
-        
+
         //06. Export Sold Products
         public static string GetSoldProducts(ProductShopContext context)
         {
             var SoldProductsUsers = context.Users
-                .Where(u=>u.ProductsSold.Any(b=>b.BuyerId != null))
+                .Where(u => u.ProductsSold.Any(b => b.BuyerId != null))
                 .OrderBy(u => u.LastName).ThenBy(u => u.FirstName)
                 .Select(u => new
                 {
-                    firstName=u.FirstName,
-                    lastName=u.LastName,
+                    firstName = u.FirstName,
+                    lastName = u.LastName,
                     soldProducts = u.ProductsSold
-                    .Where(ps=>ps.BuyerId!=null)
+                    .Where(ps => ps.BuyerId != null)
                     .Select(ps => new
                     {
-                        name=ps.Name,
-                        price=ps.Price,
-                        buyerFirstName=ps.Buyer.FirstName,
-                        buyerLastName=ps.Buyer.LastName,
+                        name = ps.Name,
+                        price = ps.Price,
+                        buyerFirstName = ps.Buyer.FirstName,
+                        buyerLastName = ps.Buyer.LastName,
                     }).ToArray()
                 })
                 .ToArray();
 
-            string json = JsonConvert.SerializeObject(SoldProductsUsers, Formatting.Indented);
+            return JsonConvert.SerializeObject(SoldProductsUsers, Formatting.Indented);
+        }
 
-            return json;
+        //07. Export Categories By Products Count
+        public static string GetCategoriesByProductsCount(ProductShopContext context)
+        {
+            var categories = context.Categories
+                .Select(c => new
+                {
+                    category = c.Name,
+                    productsCount = c.CategoriesProducts.Count,
+                    averagePrice = c.CategoriesProducts
+                        .Average(p => p.Product.Price).ToString("f2"),
+                    totalRevenue = c.CategoriesProducts
+                        .Sum(p => p.Product.Price).ToString("f2")
+                })
+                .OrderByDescending(pc => pc.productsCount)
+                .ToArray();
+
+
+            return JsonConvert.SerializeObject(categories, Formatting.Indented);
         }
 
     }
